@@ -1,0 +1,15 @@
+%h1 Edit post
+
+%form{id: "edit-post",name: "post"}
+  %div{class: "field"}
+    %input{type:"hidden",value:"#{@id}"}
+    %label Title:
+      %input{name: 'title',id: "title",value: "#{@title}"}
+  .field
+    %label Content:
+      %input{name: 'content',id: "content",value: "#{@content}"}
+  .actions
+    %input{type:"submit",value:"Update Post"}
+
+%a{href: "#/index"}
+  Back

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="/javascripts/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="/javascripts/underscore.js"></script>
+    <script type="text/javascript" src="/javascripts/backbone.js"></script>
+    <script type="text/javascript" src="/javascripts/socket.io.min.js"></script>
+    <script type="text/javascript" src="/assets/blogs.js?tmp=<%= Math.random()%>"></script>
+    <script type="text/javascript">
+      jQuery(function() {
+          var posts = new Blog.Collections.PostsCollection();
+          posts.listen("http://49.212.183.126:3000").pipe(
+            function(){
+                return posts.fetch();
+              },function(){
+                alert("websocketサーバに接続できません。")
+              }
+           ).done(function(){
+              window.router = new Blog.Routers.PostsRouter({posts:posts});
+              Backbone.history.start();
+           })
+      });
+    </script>
+  </head>
+  <body>
+    <div id="posts"></div>
+  </body>
+</html>
