@@ -10,11 +10,11 @@
     <script type="text/javascript">
       jQuery(function() {
           var posts = new Blog.Collections.PostsCollection();
-          posts.listen("http://49.212.183.126:3000").pipe(
+          posts.listen("http://localhost:3000").pipe(
             function(){
                 return posts.fetch();
               },function(){
-                alert("websocketサーバに接続できません。")
+                alert("websocket connection error!");
               }
            ).done(function(){
               window.router = new Blog.Routers.PostsRouter({posts:posts});
