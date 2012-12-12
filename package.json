@@ -11,6 +11,7 @@
     "connect-redis": "*",
     "redis": "*",
     "coffee-script": "*",
-    "socket.io": "*"
+    "socket.io": "*",
+    "mincer": "*"
   }
 }
