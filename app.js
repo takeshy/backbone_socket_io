@@ -8,13 +8,14 @@ var express = require('express')
   , redis = require('redis')
   , http = require('http')
   , path = require('path')
-  , Post = require('./models/post')
+  , post = require('./routes/post')
   , redis = require("redis")
 
 var app = express();
-var db = require("redis").createClient() 
-  , subscriber = redis.createClient()
-  , publisher  = redis.createClient();
+
+global.db = redis.createClient();
+global.publisher  = redis.createClient();
+global.subscriber = redis.createClient()
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -38,38 +39,11 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/posts', postIndex);
-app.post('/posts', postCreate);
-app.put('/posts/:id', postUpdate);
-app.delete('/posts/:id', postDestroy);
+app.get('/posts', post.index);
+app.post('/posts', post.create);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
 
-function postIndex(req,res,next){
-  Post.all(db,function(err,obj){
-      if (err) return next(err);
-      res.send(obj)
-  });
-}
-function postCreate(req,res,next){
-  Post.create(db,req.body,function(err,obj){
-      if (err) return next(err);
-      res.send(obj)
-      publisher.publish("post", JSON.stringify([obj]));
-  });
-}
-function postUpdate(req,res,next){
-  Post.update(db,req.body,function(err,obj){
-      if (err) return next(err);
-      res.send(obj)
-      publisher.publish("post", JSON.stringify([obj]));
-  });
-}
-function postDestroy(req,res,next){
-  Post.destroy(db,req.params.id,function(err,obj){
-    if (err) return next(err);
-    res.send(obj)
-    publisher.publish("post", JSON.stringify([obj]));
-  });
-}
 var server = http.createServer(app)
 var io = require('socket.io').listen(server);
 
@@ -79,7 +53,7 @@ server.listen(app.get('port'), function(){
 
 postListener = io.of("/posts").on('connection', function (socket) { });
 
-subscriber.subscribe("post");
-subscriber.on("message", function(channel, message) {
+global.subscriber.subscribe("post");
+global.subscriber.on("message", function(channel, message) {
   postListener.emit("post",message);
 });
