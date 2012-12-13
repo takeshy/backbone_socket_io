@@ -32,7 +32,7 @@ app.configure(function(){
 app.configure('development', function(){
   var Mincer  = require('mincer');
   var environment = new Mincer.Environment();
-  environment.appendPath('/home/morita/pkg/socketapp/app/assets/javascript');
+  environment.appendPath(__dirname + '/app/assets/javascript');
   app.use('/assets', Mincer.createServer(environment));
   app.use(express.errorHandler());
 });

@@ -12,6 +12,7 @@
     "redis": "*",
     "coffee-script": "*",
     "socket.io": "*",
-    "mincer": "*"
+    "mincer": "*",
+    "haml-coffee": "*"
   }
 }
