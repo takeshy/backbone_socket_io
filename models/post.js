@@ -12,7 +12,9 @@ function all(db,fn){
       var posts = []
       db.hgetall(ids.pop(),function(err,obj){ 
         if(err) return fn(err);
-        posts.push(obj);
+        if(obj){
+          posts.push(obj);
+        }
         if(ids.length == 0){
           return fn(null,posts);
         }
