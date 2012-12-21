@@ -10,7 +10,7 @@
     <script type="text/javascript">
       jQuery(function() {
           var posts = new Blog.Collections.PostsCollection();
-          posts.listen("http://localhost:3000").pipe(
+          posts.listen("http://localhost:3000").then(
             function(){
                 return posts.fetch();
               },function(){
