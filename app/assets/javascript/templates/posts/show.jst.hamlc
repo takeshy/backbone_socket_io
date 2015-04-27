@@ -1,9 +1,0 @@
-%p
-  %h3 Title
-  %span= @title
-%p
-  %h3 Content
-  %span= @content
-
-%a{href: "#/index"}
-  Back

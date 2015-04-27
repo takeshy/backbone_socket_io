@@ -1,8 +1,0 @@
-%td= @title
-%td= @content
-%td
-  %a{href: "#/#{@id}" } Show
-%td
-  %a{href: "#/#{@id}/edit"} Edit
-%td
-  %a{href: "#/#{ @id}/destroy",class: "destroy"} Destroy
