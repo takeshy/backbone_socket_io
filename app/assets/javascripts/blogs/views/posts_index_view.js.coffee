@@ -3,7 +3,8 @@ class Blog.Views.Posts.IndexView extends Backbone.View
   template: JST["templates/posts/index"]
 
   initialize: () ->
-    @collection.on('reset', @render,@)
+    @childViews = []
+    @listenTo(@collection,'add', @addOne)
 
   addAll: () =>
     @collection.each(@addOne)
@@ -11,9 +12,15 @@ class Blog.Views.Posts.IndexView extends Backbone.View
   addOne: (post) =>
     view = new Blog.Views.Posts.PostView({model : post})
     @$("tbody").append(view.render().el)
+    @childViews.push(view)
+
+  remove: ()->
+    _.each(@childViews,(view)->
+      view.remove()
+    )
+    super()
 
   render: =>
-    $(@el).html(@template(posts: @collection.toJSON() ))
+    $(@el).html(@template())
     @addAll()
-
-    return this
+    @

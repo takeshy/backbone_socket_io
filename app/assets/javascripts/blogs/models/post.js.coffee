@@ -5,9 +5,6 @@ class Blog.Models.Post extends Backbone.Model
     title: null
     content: null
 
-  renewal: (params)->
-    @set({ title: params["title"], content: params["content"]},{silent: true})
-
 class Blog.Collections.PostsCollection extends Backbone.Collection
   model: Blog.Models.Post
   url: '/posts'
@@ -25,15 +22,10 @@ class Blog.Collections.PostsCollection extends Backbone.Collection
     @socket.on("post", (msg)=>
       obj = jQuery.parseJSON(msg)
       _.each(obj,(postData)=>
-        post = @get(postData["id"])
-        if post
-          if postData.deleted
-            @remove(post,{silent: true})
-          else
-            post.renewal(postData)
-        else if ! postData.deleted
-          @add(new @model(postData),{silent: true})
+        if postData.deleted
+          @get(postData["id"])?.destroy()
+        else
+          @add(postData,{merge: true})
       )
-      @reset(@toArray())
     )
 

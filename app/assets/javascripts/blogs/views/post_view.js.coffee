@@ -8,6 +8,10 @@ class Blog.Views.Posts.PostView extends Backbone.View
 
   tagName: "tr"
 
+  initialize: ()->
+    @listenTo(@model,'destroy', @remove)
+    @listenTo(@model,'change', @render)
+
   destroy: () ->
     @model.destroy()
     return false

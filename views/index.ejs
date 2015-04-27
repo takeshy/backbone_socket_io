@@ -8,18 +8,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
     <script type="text/javascript" src="/assets/blogs.js"></script>
     <script type="text/javascript">
-      jQuery(function() {
-          var posts = new Blog.Collections.PostsCollection();
-          posts.listen("http://localhost:3000").then(
-            function(){
-                return posts.fetch();
-              },function(){
-                alert("websocket connection error!");
-              }
-           ).done(function(){
-              window.router = new Blog.Routers.PostsRouter({posts:posts});
-              Backbone.history.start();
-           })
+      $(function() {
+        window.router = new Blog.Routers.PostsRouter(<%- initialData %>);
       });
     </script>
   </head>
