@@ -21,5 +21,6 @@ node_modules/mincer/bin/mincer.js -I app/assets/javascript -o public/assets /~ab
 
 ```sh:command
 npm install
+redis-server
 node app.js
 ```
