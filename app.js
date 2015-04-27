@@ -15,7 +15,6 @@ var express = require('express')
   , errorHandler = require('errorhandler');
 
 var app = express();
-
 var common = {}
 common.db = redis.createClient();
 common.publisher  = redis.createClient();
@@ -40,6 +39,7 @@ if(app.get('env') == 'development'){
 app.get('/', function(req,res){
   routes.index(common,req,res);
 });
+
 app.route('/posts')
 .get(function(req,res){
   post.index(common,req,res);
@@ -47,6 +47,8 @@ app.route('/posts')
 .post(function(req,res){
   post.create(common,req,res);
 })
+
+app.route('/posts/:id')
 .put(function(req,res){
   post.update(common,req,res);
 })
