@@ -11,12 +11,6 @@ The below link is nice reference for backbone-reails.
 * node.js
 
 
-# assets compile
-
-```sh:command
-node_modules/mincer/bin/mincer.js -I app/assets/javascript -o public/assets /~absolute path~/app/assets/javascript/blogs.js.coffee
-```
-
 # start
 
 ```sh:command
