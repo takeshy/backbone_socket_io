@@ -16,5 +16,6 @@ The below link is nice reference for backbone-reails.
 ```sh:command
 npm install
 redis-server
+node_modules/mincer/bin/mincer.js -I app/assets/javascripts -o public/assets /Users/morita/pkg/backbone_socket_io/app/assets/javascripts/blogs.js.coffee
 node app.js
 ```
