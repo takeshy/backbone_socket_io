@@ -10,17 +10,14 @@ class Blog.Collections.PostsCollection extends Backbone.Collection
   url: '/posts'
   socket: null
   listen:(nodeUrl)->
-    deferred = jQuery.Deferred()
     @socket = io.connect(nodeUrl + "/posts")
     @socket.on('connect', ()=>
-      deferred.resolve()
       @addListener()
     )
-    deferred.promise()
 
   addListener:()->
     @socket.on("post", (msg)=>
-      obj = jQuery.parseJSON(msg)
+      obj = JSON.parse(msg)
       _.each(obj,(postData)=>
         if postData.deleted
           @get(postData["id"])?.destroy()

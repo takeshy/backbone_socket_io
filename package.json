@@ -15,6 +15,7 @@
     "redis": "*",
     "coffee-script": "*",
     "socket.io": "*",
-    "mincer": "*"
+    "mincer": "*",
+    "uglify-js": "*"
   }
 }
