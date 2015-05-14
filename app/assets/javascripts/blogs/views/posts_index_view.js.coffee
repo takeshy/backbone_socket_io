@@ -11,7 +11,7 @@ class Blog.Views.Posts.IndexView extends Backbone.View
 
   addOne: (post) =>
     view = new Blog.Views.Posts.PostView({model : post})
-    @$("tbody").append(view.render().el)
+    @el.getElementsByTagName("tbody")[0].appendChild(view.render().el)
     @childViews.push(view)
 
   remove: ()->
@@ -21,6 +21,6 @@ class Blog.Views.Posts.IndexView extends Backbone.View
     super()
 
   render: =>
-    $(@el).html(@template())
+    @el.innerHTML = @template()
     @addAll()
     @

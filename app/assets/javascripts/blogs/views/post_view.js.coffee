@@ -12,10 +12,12 @@ class Blog.Views.Posts.PostView extends Backbone.View
     @listenTo(@model,'destroy', @remove)
     @listenTo(@model,'change', @render)
 
-  destroy: () ->
+  destroy: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
     @model.destroy()
-    return false
+    window.router.navigate("/index",{trigger: true})
 
   render: ->
-    $(@el).html(@template(@model.toJSON()))
+    @el.innerHTML = @template(@model.toJSON())
     return this

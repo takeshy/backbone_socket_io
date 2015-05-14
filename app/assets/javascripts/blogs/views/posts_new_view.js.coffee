@@ -10,10 +10,10 @@ class Blog.Views.Posts.NewView extends Backbone.View
     @model = new Blog.Models.Post()
 
   changeTitle: (e)->
-    @model.set("title",$(e.target).val())
+    @model.set("title",e.target.value)
 
   changeContent: (e)->
-    @model.set("content",$(e.target).val())
+    @model.set("content",e.target.value)
 
   save: (e)->
     e.preventDefault()
@@ -25,5 +25,5 @@ class Blog.Views.Posts.NewView extends Backbone.View
     )
 
   render: ()->
-    @$el.html(@template(@model.toJSON()))
+    @el.innerHTML = @template(@model.toJSON())
     return this
